@@ -6,7 +6,7 @@ import { Button } from "@/components/ui/button";
 import CreateProject from "@/components/CreateProject";
 import CreateProjectModal from "@/components/CreateProjectModal";
 
-const page = () => {
+const Page = () => {
   const [projects, setProjects] = useState([
     {
         id: "1",
@@ -118,4 +118,4 @@ const page = () => {
   );
 };
 
-export default page;
+export default Page;

@@ -1,9 +1,41 @@
+"use client";
 import { Button } from "@/components/ui/button";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Input } from "@/components/ui/input";
+import { useAuth } from "@/lib/authContext";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
+import { useState } from "react";
 
 export default function Home() {
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState('');
+  const router = useRouter();
+  const { login } = useAuth();
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    
+    if (!email || !password) {
+      setError('Please fill in all fields');
+      return;
+    }
+    
+    try {
+      setLoading(true);
+      setError('');
+      
+      await login(email, password);
+      router.push('/createProject');
+    } catch (err) {
+      console.log(err?.message)
+      setError(err?.message || 'Failed to login. Please check your credentials.');
+    } finally {
+      setLoading(false);
+    }
+  };
   return (
     <div className="flex min-h-screen flex-col md:flex-row">
       {/* Left side */}
@@ -108,18 +140,30 @@ export default function Home() {
             </h2>
           </div>
 
-          <form className="space-y-4">
+          <form className="space-y-4" onSubmit={handleSubmit}>
             <div>
               <Input
+                id="email"
+                name="email"
                 type="email"
-                placeholder="Email Address"
+                autoComplete="email"
+                required
                 className="h-12 w-full rounded-md border border-gray-300 px-4"
+                placeholder="Email address"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
               />
             </div>
             <div>
               <Input
+                id="password"
+                name="password"
                 type="password"
+                autoComplete="current-password"
+                required
                 placeholder="Password"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
                 className="h-12 w-full rounded-md border border-gray-300 px-4"
               />
             </div>
@@ -134,8 +178,15 @@ export default function Home() {
                 Forgot password?
               </Link>
             </div>
-            <Button className="h-12 w-full bg-purple-600 hover:bg-purple-700">
-              Login
+            <Button
+              className="h-12 w-full bg-purple-600 hover:bg-purple-700"
+              type="submit"
+              disabled={loading}
+            >
+            {
+              loading?"Loading...":"Login"
+            }
+              
             </Button>
 
             <div className="relative my-6">
@@ -174,9 +225,9 @@ export default function Home() {
             </button>
 
             <div className="mt-6 text-center text-sm text-gray-600">
-              Don't have an account?{" "}
+              Don&apos;t have an account?{" "}
               <Link
-                href="#"
+                href="/register"
                 className="font-medium text-blue-600 hover:underline"
               >
                 Create Account
