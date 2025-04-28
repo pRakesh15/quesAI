@@ -11,29 +11,32 @@ const getAuthHeader = () => {
   return token ? { Authorization: `Bearer ${token}` } : {};
 };
 
-// // Fetch all seats
-// export const getSeats = async () => {
-//   try {
-//     const { data } = await axios.get('/seat/allSeat');
-//     return data;
-//   } catch (error) {
-//     console.error('Error fetching seats:', error);
-//     throw error;
-//   }
-// };
+// Fetch all project's of a User..
+export const getMyProjects = async () => {
+  try {
+    const { data } = await axios.get('/project/getAll', {
+      headers: getAuthHeader(),
+    }
+);
+    return data;
+  } catch (error) {
+    console.error('Error fetching Projects:', error);
+    throw error;
+  }
+};
 
-// // Book seats
-// export const bookSeats = async (seatNumbers) => {
-//   try {
-//     const { data } = await axios.post('/seat/bookingSeats', { seatNumbers }, {
-//       headers: getAuthHeader(),
-//     });
-//     return data;
-//   } catch (error) {
-//     console.error('Error booking seats:', error);
-//     throw error;
-//   }
-// };
+// Book seats
+export const createProject = async (name) => {
+  try {
+    const { data } = await axios.post('/project/createProject', { name }, {
+      headers: getAuthHeader(),
+    });
+    return data;
+  } catch (error) {
+    console.error('Error creating project:', error);
+    throw error;
+  }
+};
 
 // // Get user's bookings
 // export const getUserBookings = async () => {

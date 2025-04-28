@@ -1,24 +1,42 @@
 "use client";
 import { Bell, Plus, Settings } from "lucide-react";
 import Link from "next/link";
-import React, { useState } from "react";
-import { Button } from "@/components/ui/button";
+import React, { useEffect, useState } from "react";
 import CreateProject from "@/components/CreateProject";
 import CreateProjectModal from "@/components/CreateProjectModal";
+import { getMyProjects } from "@/lib/allApi";
+import { useAuth } from '@/lib/authContext';
+
 
 const Page = () => {
-  const [projects, setProjects] = useState([
-    {
-        id: "1",
-        title: "Sample Project",
-        fileCount: 4,
-        lastEdited: "a week ago",
-        initials: "SP",
-        color: "#F9A826",
-      },
-  
-  ]);
+  const [projects, setProjects] = useState([ ]);
+  const [isLoading, setIsLoading] = useState(true);
+
+  const { isAuthenticated, loading } = useAuth();
+
+
+  const fetchProjects=async()=>{
+    try {
+      setIsLoading(true);
+      const seatData = await getMyProjects();
+      // console.log(seatData?.data);
+      setProjects(seatData?.data);
+    } catch (err) {
+      toast.error("Failed to fetch seats.");
+    } finally {
+      setIsLoading(false);
+    }
+  }
   //fetch the project of a single user and make it in useEffect.
+  
+  useEffect(() => {
+    if (!loading && !isAuthenticated) {
+      router.push("/");
+    } else if (!loading && isAuthenticated) {
+      fetchProjects();
+    }
+  }, [loading, isAuthenticated]);
+
   return (
     <div className="flex min-h-screen flex-col bg-white">
       <nav className="flex items-center justify-between  px-6 py-4">
@@ -78,32 +96,32 @@ const Page = () => {
             <div className="flex gap-4">
               {/* add the project modal */}
 
-            <CreateProjectModal/>
+            <CreateProjectModal onSuccess={fetchProjects}/>
             </div>
           </div>
           <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
             {projects.map((project) => (
               <Link
-                href={`/projects/${project.id}`}
-                key={project.id}
+                href={`/projects/${project._id}`}
+                key={project._id}
                 className="border border-gray-200 rounded-lg p-4 hover:shadow-md transition-shadow"
               >
                 <div className="flex items-start gap-4">
                   <div
                     className="w-16 h-16 rounded-md flex items-center justify-center text-white text-2xl font-bold"
-                    style={{ backgroundColor: project.color }}
+                    style={{ backgroundColor: "#F9A826" }}
                   >
-                    {project.initials}
+                    {project?.initials || "SP"}
                   </div>
                   <div className="flex flex-col">
                     <h3 className="text-purple-600 font-medium">
-                      {project.title}
+                      {project?.name}
                     </h3>
                     <p className="text-sm text-gray-500">
                       {project.fileCount} Files
                     </p>
                     <p className="text-xs text-gray-400 mt-2">
-                      Last edited {project.lastEdited}
+                      Last edited {project?.updatedAt.split("T")[0]}
                     </p>
                   </div>
                 </div>
