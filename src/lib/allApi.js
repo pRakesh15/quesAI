@@ -38,31 +38,31 @@ export const createProject = async (name) => {
   }
 };
 
-// // Get user's bookings
-// export const getUserBookings = async () => {
-//   try {
-//     const { data } = await axios.get('/seat/getMyBookings', {
-//       headers: getAuthHeader(),
-//     });
-//     return data;
-//   } catch (error) {
-//     console.error('Error fetching bookings:', error);
-//     throw error;
-//   }
-// };
+// Get files of a poticularProject
+export const getFilesOfProject = async (projectId) => {
+  try {
+    const { data } = await axios.get(`file/project/${projectId}`, {
+      headers: getAuthHeader(),
+    });
+    return data;
+  } catch (error) {
+    console.error('Error fetching files:', error);
+    throw error;
+  }
+};
 
-// // Cancel booking
-// export const cancelBooking = async (bookingId) => {
-//   try {
-//     const { data } = await axios.post(`/seat/bookings/cancel/${bookingId}`, {}, {
-//       headers: getAuthHeader(),
-//     });
-//     return data;
-//   } catch (error) {
-//     console.error('Error cancelling booking:', error);
-//     throw error;
-//   }
-// };
+// CreateFile
+export const createFile = async (name,transcript,projectId) => {
+  try {
+    const { data } = await axios.post(`/file/createFile/${projectId}`, {name,transcript}, {
+      headers: getAuthHeader(),
+    });
+    return data;
+  } catch (error) {
+    console.error('Error creating file:', error);
+    throw error;
+  }
+};
 
 // // bOOK  seat's by recommendations
 // export const getRecommendedSeats = async (count) => {

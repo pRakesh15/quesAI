@@ -18,9 +18,9 @@ const Page = () => {
   const fetchProjects=async()=>{
     try {
       setIsLoading(true);
-      const seatData = await getMyProjects();
+      const projectData = await getMyProjects();
       // console.log(seatData?.data);
-      setProjects(seatData?.data);
+      setProjects(projectData?.data);
     } catch (err) {
       toast.error("Failed to fetch seats.");
     } finally {
@@ -102,7 +102,7 @@ const Page = () => {
           <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
             {projects.map((project) => (
               <Link
-                href={`/projects/${project._id}`}
+                href={`/createProject/${project._id}`}
                 key={project._id}
                 className="border border-gray-200 rounded-lg p-4 hover:shadow-md transition-shadow"
               >
