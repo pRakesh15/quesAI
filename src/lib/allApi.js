@@ -64,29 +64,19 @@ export const createFile = async (name,transcript,projectId) => {
   }
 };
 
-// // bOOK  seat's by recommendations
-// export const getRecommendedSeats = async (count) => {
-//     console.log(count)
-//   try {
-//     const { data } = await axios.post('/seat/bookSeatByRecommendation', { count },{
-//         headers: getAuthHeader(),
-//       });
-//     return data;
-//   } catch (error) {
-//     console.error('Error getting recommended seats:', error);
-//     throw error;
-//   }
-// };
+//get singgleFile of a project by file id
 
-// // Reset all seats (admin function)
-// export const resetAllSeats = async () => {
-//   try {
-//     const { data } = await axios.post('/seat/reset', {}, {
-//       headers: getAuthHeader(),
-//     });
-//     return data;
-//   } catch (error) {
-//     console.error('Error resetting seats:', error);
-//     throw error;
-//   }
-// };
+export const getSingleFile = async (fileId) => {
+  try {
+    const { data } = await axios.get(`file/fileById/${fileId}`, {
+      headers: getAuthHeader(),
+    });
+    return data;
+  } catch (error) {
+    console.error('Error fetching files:', error);
+    throw error;
+  }
+};
+
+
+

@@ -35,7 +35,7 @@ export default function AddPodcast() {
       // console.log(fileData?.data);
       setFiles(fileData?.data)
     } catch (err) {
-      toast.error("Failed to fetch seats.");
+      toast.error("Failed to fetch Files.");
     } finally {
       setIsLoading(false);
     }
@@ -59,8 +59,8 @@ export default function AddPodcast() {
             </BreadcrumbItem>
             <BreadcrumbSeparator />
             <BreadcrumbItem>
-              <BreadcrumbLink href="/sample-project">
-                Sample Project
+              <BreadcrumbLink href="/createProject">
+               Project's
               </BreadcrumbLink>
             </BreadcrumbItem>
             <BreadcrumbSeparator />
@@ -78,12 +78,12 @@ export default function AddPodcast() {
           </Button>
         </div>
       </header>
-      <main className="flex-1 p-6 max-w-7xl mx-auto w-full">
+      <main className="flex-1 p-6 w-full">
         <h1 className="text-2xl font-bold mb-6">Add Podcast</h1>
         <PodcastCards projectId={projectId} onSuccess={fetchFiles}/>
         <div className="mt-6">
           {files.length > 0 ? (
-            <FilesTable files={files} />
+            <FilesTable files={files} projectId={projectId}/>
           ) : (
             <FileUploadArea projectId={projectId} onSuccess={fetchFiles}/>
           )}

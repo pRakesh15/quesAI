@@ -37,6 +37,8 @@ const Page = () => {
     }
   }, [loading, isAuthenticated]);
 
+  if(loading) return 
+
   return (
     <div className="flex min-h-screen flex-col bg-white">
       <nav className="flex items-center justify-between  px-6 py-4">
