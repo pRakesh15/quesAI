@@ -8,7 +8,7 @@
 import axios from 'axios';
 
 const axiosInstance = axios.create({
-  baseURL: 'http://127.0.0.1:8090/api/v1', // Automatically prepended to all URLs
+  baseURL: 'https://quesai-server.onrender.com/api/v1', // Automatically prepended to all URLs i have to add this in dotenv.
   headers: {
     'Content-Type': 'application/json',
   },
