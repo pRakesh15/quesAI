@@ -1,36 +1,73 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# MERN Stack Project – Project & quesAi
 
-## Getting Started
+This is a MERN stack-based full-stack application for managing projects, fields, and files. It uses **Next.js App Router** for frontend routing and follows a modular architecture.
 
-First, run the development server:
+---
+
+## 📁 Folder Structure
+
+src/ ├── app/ │ ├── createProject/ │ │ ├── [projectId]/ │ │ │ ├── [fileId]/ │ │ │ │ └── page.jsx │ │ │ ├── layout.jsx │ │ │ └── page.jsx │ │ └── page.jsx │ ├── layout.js │ └── page.jsx │ ├── components/ │ └── ui/ │ ├── AddProdcastModal.jsx │ ├── AppSideBar.jsx │ ├── CreateProject.jsx │ ├── CreateProjectModal.jsx │ ├── FilesTable.jsx │ ├── FileUpdate.jsx │ └── ProductCard.jsx │ ├── hooks/ │ └── use-mobile.js │ ├── lib/ │ ├── allApi.js │ ├── authContext.jsx │ ├── axiosInstance.js │ └── utils.js │ ├── favicon.ico ├── globals.css
+
+yaml
+Copy
+Edit
+
+---
+
+## 🚀 Features
+
+- ✅ Dynamic Routing using App Router (`[projectId]`, `[fileId]`)
+- ✅ Modular components and modals
+- ✅ Custom hook for mobile responsiveness
+- ✅ Axios-based API interaction
+- ✅ Global state using Context API
+
+---
+
+## 🧪 Getting Started
+
+### 1. Clone the Repository
 
 ```bash
+git clone https://github.com/yourusername/your-repo.git
+cd your-repo
+2. Install Dependencies
+bash
+Copy
+Edit
+npm install
+3. Setup Environment Variables
+Create a .env.local file in the root directory and add:
+
+env
+Copy
+Edit
+NEXT_PUBLIC_API_BASE_URL=http://localhost:5000/api
+4. Run the Development Server
+bash
+Copy
+Edit
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+🛠 Built With
+Next.js – Frontend Framework
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+React – UI Library
 
-You can start editing the page by modifying `app/page.js`. The page auto-updates as you edit the file.
+Axios – HTTP Client
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+Context API – State Management
 
-## Learn More
+🧑‍💻 Author
+Rakesh Pradhan
+MERN Stack Developer
 
-To learn more about Next.js, take a look at the following resources:
+📌 Notes
+You can deploy this app on Vercel.
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+Ensure your backend supports CORS for both localhost:3000 and the deployed domain.
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+vbnet
+Copy
+Edit
 
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+Let me know if you'd like to auto-generate a `vercel.json` config or backend README next.
